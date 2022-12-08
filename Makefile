@@ -1,15 +1,36 @@
 all: clean hello
 	@./hello
 
-hello: hello.o
+hello: clean_hello hello.o
 	@echo "+ $@"	
-	@ld hello.o -o hello
+	@ld -m elf_i386 hello.o -o hello
 
 hello.o: hello.asm
 	@echo "+ $@"
-	@nasm -felf64 hello.asm -o hello.o
+	@nasm -felf hello.asm -o hello.o
+
+hello_debug: clean_hello_debug hello_debug.o
+	@echo "+ $@"	
+	@ld -m elf_i386 hello_debug.o -o hello_debug
+
+hello_debug.o: hello.asm
+	@echo "+ $@"
+	@nasm -g -felf hello.asm -o hello_debug.o
+
+debug: hello_debug
+	@echo "+ $@"
+	gdb -x hello.gdb
 
 .PHONY: clean
-clean:
+clean: clean_hello clean_hello_debug
 	@echo "+ $@"
-	@rm -f hello a.out *.o
+
+.PHONY: clean_hello
+clean_hello:
+	@echo "+ $@"
+	@rm -f hello hello.o
+
+.PHONY: clean_hello_debug
+clean_hello_debug:
+	@echo "+ $@"
+	@rm -f hello_debug hello_debug.o

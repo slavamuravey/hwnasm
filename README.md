@@ -15,3 +15,9 @@ To run the program, simply run:
 ```
 make
 ```
+
+To debug, run:
+
+```
+make debug
+```

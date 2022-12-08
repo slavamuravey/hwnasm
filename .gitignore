@@ -1,2 +1,4 @@
 hello.o
 hello
+hello_debug.o
+hello_debug
