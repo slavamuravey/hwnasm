@@ -17,6 +17,7 @@ hello_debug.o: hello.asm
 	@echo "+ $@"
 	@nasm -g -felf hello.asm -o hello_debug.o
 
+.PHONY: debug
 debug: hello_debug
 	@echo "+ $@"
 	gdb -x hello.gdb
