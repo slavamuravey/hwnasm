@@ -3,6 +3,22 @@
         section .text
 _start:
 main:
+        mov     esi, hello_msg
+        xor     eax, eax
+        xor     ebx, ebx
+lp:     mov     bl, [esi + ecx]      
+        cmp     bl, 0
+        je      lpquit
+        push    ebx
+        inc     ecx
+        jmp     lp
+lpquit: jecxz   done
+        mov     edi, esi
+lp2:    pop     ebx
+        mov     [edi], bl
+        inc     edi
+        loop    lp2
+done:   
         mov     eax, 4
         mov     ebx, 1
         mov     ecx, hello_msg
